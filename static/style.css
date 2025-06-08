@@ -27,7 +27,7 @@ input
 
 #action-buttons
 {
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 #table-size
@@ -48,3 +48,15 @@ th
   padding: 4px;
 }
 
+#result-table-ex input
+{
+  width: 35px;
+}
+#data-table-ex input
+{
+  width: 30px;
+}
+#power-table-ex input
+{
+  width: 30px;
+}
