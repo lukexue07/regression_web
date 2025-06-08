@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import numpy as np
+import os
 
 def gs_coefficient(v1, v2):
     v1 = v1.reshape(-1, 1)
@@ -79,4 +80,6 @@ def regress():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host = '0.0.0.0', port= port, debug=True) 
+    #app.run(debug=True) #only have this line for local testing
