@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multivariable Regression</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        td.y-column input {
+        background-color: #e0f7fa;
+        font-weight: bold;
+        }
+        th {
+        background-color: #f2f2f2;
+        padding: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Excel-Like Regression Tool</h1>
+    <p>Enter data where the last column is the target (Y), and others are features (X):</p>
+
+    <table id="data-table">
+        <thead>
+        <tr id="header-row">
+            <th>X1</th>
+            <th>X2</th>
+            <th>Y</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="number"></td>
+            <td><input type="number"></td>
+            <td class="y-column"><input type="number"></td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <button onclick="addRow()">Add Row</button>
+    <button onclick="addColumn()">Add Column</button>
+    <button onclick="clearTable()">Clear Table</button>
+    <button onclick="submitData()">Run Regression</button>
+
+    <h2>Result</h2>
+    <div id="result">No coefficients yet.</div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

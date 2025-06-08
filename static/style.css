@@ -1,0 +1,50 @@
+/* this styles the front end */
+
+table 
+{
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+td 
+{
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+input 
+{
+  width: 60px;
+}
+
+#data-table
+{
+  margin-top: 20px;
+}
+
+#grid-controls
+{
+  margin-top: 10px;
+}
+
+#action-buttons
+{
+  margin-top: 10px;
+}
+
+#table-size
+{
+  margin-top: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+td.y-column input 
+{
+  background-color: #00ddfa;
+  font-weight: bold;
+}
+th 
+{
+  background-color: #f2f2f2;
+  padding: 4px;
+}
+

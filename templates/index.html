@@ -1,0 +1,85 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>, metadata like title, font, css links
+  <meta charset="UTF-8">
+  <title>Regression App</title>
+  <link rel="stylesheet" href="style.css">, links to css files
+</head>
+<body>, actual content users use
+  <script src="script.js"></script>, scripts link to js file
+</body> everytime you open smth you have to close it, and everytime you close it you have the / before the word
+</html>
+every html page starts like this, this provides the basic framework of the page
+-->
+
+<!--we also want to create a table for the data entries, so we use an html table, with a <tr> tag to denote a row-->
+<!--<td> defines a cell within that row-->
+<!--if you run from the html file, script.js and style.css must be in same folder to work-->
+<!--if you have a backend i think u must run from the python script otherwise its not gonna execute-->
+<!--but if u run it from app.py, you must then edit the file paths of the script.js and the style.css files in this html file-->
+<!--cuz youre supposed to put script.js and style.css into the static folder as that's how flask looks for them-->
+<!--and youre supposed to put index.html in the templates folder and put app.py into a backend folder??-->
+<!--if youre running using flask, you can use ctrl shift i to inspect the page and you can go to the console which will receive-->
+<!--all the console.log() from the javascript file and any errors-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multi-Variable Regression App</title>
+    <link rel="stylesheet" href="../static/style.css"> <!--adjusts the background of the y-column class aka the y, td tag is table data, th is table header-->
+    <!--alternatively u can directly just add the css code here and use the tag <style></style> around it-->
+</head>
+<body>
+    <h1>Excel-Like Regression Tool</h1> <!--h1,h2,etc are headers-->
+    <p>Enter data where the last column is the target (Y), and others are features (X):</p>
+
+    <script src="../static/script.js"></script>
+
+    <div id="action-buttons">
+        <button onclick="addRow()">Add Row</button>
+        <button onclick="removeRow()">Remove Row</button>
+        <button onclick="addColumn()">Add Column</button>
+        <button onclick="removeColumn()">Remove Column</button>
+        <button onclick="submitData()">Run Regression</button>
+        <button onclick="clearTable()">Clear Table</button>
+    </div>
+
+    <div id="grid-controls">
+        <label for="rows">Rows:</label>
+        <input type="number" id="rows" min="1">
+
+        <label for="columns">Columns:</label>
+        <input type="number" id="columns" min="2">
+
+        <button onclick="generateGrid()">Set Grid Size</button>
+    </div>
+
+    <div id="table-size">1 x 3</div>
+
+    <table id="power-table">
+        <label for="rows">Exponent of each feature:</label>
+        <tr>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+        </tr>
+    </table>
+
+    <table id="data-table">
+        <label for="rows">Enter data here:</label>
+        <tr>
+            <td><input type="number" /></td>
+            <td><input type="number" /></td>
+            <td class="y-column"><input type="number" /></td> <!-- This is Y, has built-in validation as well -->
+        </tr>
+    </table>
+
+    <h3>Coefficients</h3>
+    <table id="result-table">
+    </table>
+
+    <p id="r2"></p>
+    <p id="lindep"></p>
+</body>
+</html>
