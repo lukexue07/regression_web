@@ -2,7 +2,6 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import numpy as np
-from sympy import *
 
 def gs_coefficient(v1, v2):
     v1 = v1.reshape(-1, 1)
@@ -53,7 +52,7 @@ def regress():
                     row.append(X[i][j]**(power-pow))
             row.append(1)
             givens.append(row)
-            
+
         if (len(givens) < len(givens[0])):
             return jsonify({'error': "Singular matrix"}), 500 #????
         
