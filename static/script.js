@@ -216,6 +216,59 @@ function saveTableToLocalStorage()
     localStorage.setItem('powerData', JSON.stringify(row2));
 }
 
+function readCSV()
+{
+    const fileInput = document.getElementById('csvFileInput');
+    const result = document.getElementById('result-table');
+    const table = document.getElementById('data-table');
+    if (!fileInput.files.length) //or file is empty
+    {
+        result.insertAdjacentText('beforeend', "No data entered");
+        return;
+    }
+
+    const file = fileInput.files[0];
+    let reader = new FileReader();
+
+    reader.onload = function(event) { //when the file is fully loaded, FileReader triggers its onload event which we define to be this function
+        const csvText = event.target.result; //contains full content of the file as a string
+        let rows = csvText.split("\n"); //let rows = csvText.trim().split("\n").filter(row => row.length);????
+        let data = rows.map(row => row.split(",")); //data is a 2d array containing all individual elements
+        const rowNum = data.length;
+        if (rowNum == 0)
+        {
+            result.insertAdjacentText('beforeend', "No data entered");
+            return;
+        }
+        const cols = data[0].length;
+        table.innerHTML = '';
+        for (let i = 0; i < rowNum; ++i)
+        {
+            const row = table.insertRow();
+            for (let j = 0; j < cols; ++j)
+            {
+                const cell = row.insertCell();
+                const input = document.createElement('input');
+                input.type = 'number';
+                try
+                {
+                    input.value = parseFloat(data[i][j].trim()); //trim removes unwanted space
+                }
+                catch (error)
+                {
+                    table.innerHTML = ''
+                    result.insertAdjacentText('beforeend', `Invalid csv data entered at index ${i}, ${j}`);
+                }
+                cell.appendChild(input);
+                if (j == cols - 1) 
+                    cell.classList.add('y-column');
+            }
+        }
+    };
+
+    reader.readAsText(file); //reader will start reading the file as text, and then once its done loading it will trigger onload function
+}
+
 function loadTableFromLocalStorage() 
 {
     const data = JSON.parse(localStorage.getItem('tableData'));
@@ -241,7 +294,7 @@ function loadTableFromLocalStorage()
             input.type = 'number';
             input.value = rowData[i];
             cell.appendChild(input);
-            if (i === rowData.length - 1) 
+            if (i == rowData.length - 1) 
                 cell.classList.add('y-column');
         }
     }
@@ -277,3 +330,4 @@ window.addEventListener('beforeunload', saveTableToLocalStorage);
 //use function() {} to declare and initialize a function in one line, kinda like lambda
 //if you add async in front of a function, it forces the function to return a promise with the value of the promise as the thing being returned
 //await can only be used in an async function, forces function to pause and wait for promise to be resolved before continuing
+//note a promise is just a placeholder for some value that will be the eventual result of an async function

@@ -84,6 +84,9 @@ every html page starts like this, this provides the basic framework of the page
     <script src="../static/script.js"></script>
 
     <div id="action-buttons">
+        <input type="file" id="csvFileInput" accept=".csv" value="Input CSV File">
+        <button onclick="readCSV()">Submit CSV data</button>
+        <br>
         <button onclick="addRow()">Add Row</button>
         <button onclick="removeRow()">Remove Row</button>
         <button onclick="addColumn()">Add Column</button>
