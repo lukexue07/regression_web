@@ -258,7 +258,7 @@ function readCSV()
 
     reader.onload = function(event) { //when the file is fully loaded, FileReader triggers its onload event which we define to be this function
         const csvText = event.target.result; //contains full content of the file as a string
-        let rows = csvText.split("\n"); //let rows = csvText.trim().split("\n").filter(row => row.length);????
+        let rows = csvText.trim().split("\n"); //let rows = csvText.trim().split("\n").filter(row => row.length);????
         let data = rows.map(row => row.split(",")); //data is a 2d array containing all individual elements
         const rowNum = data.length;
         if (rowNum == 0)
