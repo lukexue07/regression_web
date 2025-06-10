@@ -84,7 +84,8 @@ every html page starts like this, this provides the basic framework of the page
     <script src="../static/script.js"></script>
 
     <div id="action-buttons">
-        <input type="file" id="csvFileInput" accept=".csv" value="Input CSV File">
+        <input type="file" id="csvFileInput" accept=".csv" value="Input CSV File" onchange="displayFile()">
+        <span id="fileDisplay"></span> <!--labels do not display dynamic content, use span or p, p is paragraph style, auto line breaks, span is just one line of text-->
         <button onclick="readCSV()">Submit CSV data</button>
         <br>
         <button onclick="addRow()">Add Row</button>

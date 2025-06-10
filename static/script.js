@@ -220,6 +220,24 @@ function saveTableToLocalStorage()
     localStorage.setItem('powerData', JSON.stringify(row2));
 }
 
+function displayFile()
+{
+    const fileInput = document.getElementById('csvFileInput');
+    const fileNameDisplay = document.getElementById('fileDisplay');
+
+    //console.log(fileInput.files); //FileList {0: File, length: 1}, aka at index 0 is a file, etc., and the length is 1, it's essentially an array of files
+
+    if (fileInput.files.length > 0)
+    {
+        const fileName = fileInput.files[0].name;
+        fileNameDisplay.textContent = fileName;
+    }
+    else
+    {
+        fileNameDisplay.textContent = '';
+    }
+}
+
 function readCSV()
 {
     const fileInput = document.getElementById('csvFileInput');
@@ -265,7 +283,7 @@ function readCSV()
                 catch (error)
                 {
                     table.innerHTML = ''
-                    result.insertAdjacentText('beforeend', `Invalid csv data entered at index ${i}, ${j}`);
+                    result.insertAdjacentText('beforeend', `Invalid csv data entered at index ${i}, ${j}\n`);
                 }
                 cell.appendChild(input);
                 if (j == cols - 1) 
