@@ -117,6 +117,10 @@ async function submitData()
     const X = [], Y = [];
     let pwr = [];
     const powers = document.getElementById('power-table');
+    const r2 = document.getElementById('r2');
+    const lindep = document.getElementById('lindep');
+    r2.innerHTML = '';
+    lindep.innerHTML = '';
 
     for (let row of table.rows) 
     {
@@ -221,6 +225,10 @@ function readCSV()
     const fileInput = document.getElementById('csvFileInput');
     const result = document.getElementById('result-table');
     const table = document.getElementById('data-table');
+    const r2 = document.getElementById('r2');
+    const lindep = document.getElementById('lindep');
+    r2.innerHTML = '';
+    lindep.innerHTML = '';
     if (!fileInput.files.length) //or file is empty
     {
         result.insertAdjacentText('beforeend', "No data entered");
@@ -267,6 +275,7 @@ function readCSV()
     };
 
     reader.readAsText(file); //reader will start reading the file as text, and then once its done loading it will trigger onload function
+    updateTableSize();
 }
 
 function loadTableFromLocalStorage() 
