@@ -245,6 +245,7 @@ function readCSV()
     const table = document.getElementById('data-table');
     const r2 = document.getElementById('r2');
     const lindep = document.getElementById('lindep');
+    const pwrs = document.getElementById('power-table');
     r2.innerHTML = '';
     lindep.innerHTML = '';
     if (!fileInput.files.length) //or file is empty
@@ -261,12 +262,21 @@ function readCSV()
         let rows = csvText.trim().split("\n"); //let rows = csvText.trim().split("\n").filter(row => row.length);????
         let data = rows.map(row => row.split(",")); //data is a 2d array containing all individual elements
         const rowNum = data.length;
+        pwrs.innerHTML = '';
         if (rowNum == 0)
         {
             result.insertAdjacentText('beforeend', "No data entered");
             return;
         }
         const cols = data[0].length;
+        rowpwrs = pwrs.insertRow();
+        for (let i = 0; i < cols-1; ++i)
+        {
+            const cell = row.insertCell();
+            const input = document.createElement('input');
+            input.type = 'number';
+            cell.appendChild(input);
+        }
         table.innerHTML = '';
         for (let i = 0; i < rowNum; ++i)
         {
