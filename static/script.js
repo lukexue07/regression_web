@@ -172,6 +172,11 @@ async function submitData()
         {
             resultTable.insertAdjacentText('beforeend', "Invalid data");
         }
+        else if (result.error.substring(0,3) == "Not")
+        {
+            const lindepBox = document.getElementById("lindep");
+            lindepBox.innerText = `Remove ${result.lindep} columns and they would be linearly independent. Remove and try again.`;
+        }
         else
         {
             const coeffs = result.coeffs;
@@ -188,11 +193,6 @@ async function submitData()
             }
             const r2Box = document.getElementById("r2");
             r2Box.innerText = "R^2: "+r2.toFixed(3);
-            if (result.lindep != 0)
-            {
-                const lindepBox = document.getElementById("lindep");
-                lindepBox.innerText = `Remove ${result.lindep} columns and they would be linearly independent`;
-            }
         }
     }
     catch (error)

@@ -59,12 +59,16 @@ def regress():
         
         matrix = np.matrix(givens)
         transpose = np.transpose(matrix)
+        X.append([1 for _ in range(len(X[0]))])
         vectors = np.matrix(X).transpose()
 
         square = np.matmul(transpose,matrix)
         inv = np.linalg.inv(square)
         coeffs = np.matmul(np.matmul(inv,transpose), y_vec)
         ortho_basis = gs(vectors)
+
+        if len(vectors.T)-len(ortho_basis.T) != 0:
+            return jsonify({'error': 'Not indep', 'lindep': len(vectors.T)-len(ortho_basis.T)})
 
         y_hat = np.matmul(matrix, coeffs)
         y_mean = np.mean(y_vec)
@@ -74,7 +78,7 @@ def regress():
         # Compute R^2
         R2 = 1 - (SSR / SST)
         
-        return jsonify({'coeffs': coeffs.tolist(), 'r2': R2, 'lindep': len(vectors.T)-len(ortho_basis.T)}) #only can pass 1 dictionary into jsonify
+        return jsonify({'coeffs': coeffs.tolist(), 'r2': R2}) #only can pass 1 dictionary into jsonify
     except Exception as e:
         print(str(e))
         return jsonify({'error': str(e)}), 500
