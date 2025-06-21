@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import numpy as np
 import os
+from sympy import Matrix
 
 def gs_coefficient(v1, v2):
     v1 = v1.reshape(-1, 1)
@@ -61,15 +62,20 @@ def regress():
         transpose = np.transpose(matrix)
         vectors = np.matrix(X).transpose()
         vectors = np.append(vectors, np.array([[1 for _ in range(vectors.shape[1])]]), axis=0)
-        vectors = vectors.T
+        vectors = np.transpose(vectors)
 
         square = np.matmul(transpose,matrix)
         inv = np.linalg.inv(square)
         coeffs = np.matmul(np.matmul(inv,transpose), y_vec)
-        ortho_basis = gs(vectors)
+        #ortho_basis = gs(vectors)
+        ortho_basis = Matrix(vectors)
+        rref_sympy_matrix, pivot_columns = ortho_basis.rref()
 
-        if len(vectors.T)-len(ortho_basis.T) != 0:
-            return jsonify({'error': 'Not indep', 'lindep': len(vectors.T)-len(ortho_basis.T)}), 500
+        #if len(vectors.T)-len(ortho_basis.T) != 0:
+        #    return jsonify({'error': 'Not indep', 'lindep': len(vectors.T)-len(ortho_basis.T)}), 500
+
+        if len(vectors.T)-len(pivot_columns) != 0:
+            return jsonify({'error': 'Not indep', 'lindep': len(vectors.T)-len(pivot_columns)}), 500
 
         y_hat = np.matmul(matrix, coeffs)
         y_mean = np.mean(y_vec)
@@ -85,7 +91,7 @@ def regress():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host = '0.0.0.0', port= port, debug=True) 
-    #dummy
-    #app.run(debug=True) #only have this line for local testing
+    #port = int(os.environ.get('PORT', 5000))
+    #app.run(host = '0.0.0.0', port= port, debug=True) 
+    
+    app.run(debug=True) #only have this line for local testing
