@@ -59,8 +59,9 @@ def regress():
         
         matrix = np.matrix(givens)
         transpose = np.transpose(matrix)
-        X.append([1 for _ in range(len(X[0]))])
         vectors = np.matrix(X).transpose()
+        vectors = np.append(vectors, np.array([[1 for _ in range(vectors.shape[1])]]), axis=0)
+        vectors = vectors.T
 
         square = np.matmul(transpose,matrix)
         inv = np.linalg.inv(square)
@@ -68,7 +69,7 @@ def regress():
         ortho_basis = gs(vectors)
 
         if len(vectors.T)-len(ortho_basis.T) != 0:
-            return jsonify({'error': 'Not indep', 'lindep': len(vectors.T)-len(ortho_basis.T)})
+            return jsonify({'error': 'Not indep', 'lindep': len(vectors.T)-len(ortho_basis.T)}), 500
 
         y_hat = np.matmul(matrix, coeffs)
         y_mean = np.mean(y_vec)
@@ -84,6 +85,6 @@ def regress():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host = '0.0.0.0', port= port, debug=True) 
-    #app.run(debug=True) #only have this line for local testing
+    #port = int(os.environ.get('PORT', 5000))
+    #app.run(host = '0.0.0.0', port= port, debug=True) 
+    app.run(debug=True) #only have this line for local testing

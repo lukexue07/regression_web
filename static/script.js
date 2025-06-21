@@ -159,7 +159,7 @@ async function submitData()
             headers: {'Content-Type': 'application/json'}, //we are sending json data
             body: JSON.stringify({pwr, X, Y}) //converts X and Y into json string, the body is the message
         });
-
+        //don't think you can look in the debug console in vscode when running from flask, must go to page and inspect it and go to debug console there
         const result = await response.json(); //awaits the response from the backend
         const resultTable = document.getElementById('result-table');
         resultTable.innerHTML = '';
@@ -172,7 +172,7 @@ async function submitData()
         {
             resultTable.insertAdjacentText('beforeend', "Invalid data");
         }
-        else if (result.error.substring(0,3) == "Not")
+        else if (result.error == "Not indep")
         {
             const lindepBox = document.getElementById("lindep");
             lindepBox.innerText = `Remove ${result.lindep} columns and they would be linearly independent. Remove and try again.`;
